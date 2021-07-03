@@ -41,7 +41,7 @@ const questions = [
     {
         type: "input",
         message: "Provide usage information.",
-        name: "name",
+        name: "usage",
     },
     {
         type: "input",
@@ -52,26 +52,118 @@ const questions = [
     {
         type: "input",
         message: "Provide test instructions for this project.",
-        name: "funFact",
+        name: "test",
     },
     {
         type: "list",
         message: "Please select the licesne for your project.",
         name: "license",
-        choices: []
+        choices: ["license A", "license B", "license C"],
 
-    }
+    },
 ];
 
 function userPrompt() {
-    inquirer.prompt(questions)
+    inquirer
+        .prompt ([
+            {
+                type: "input",
+                message: "What is your GitHub username?",
+                name: "userName",
+            },
+            {
+                type: "input",
+                message: "What is your email address?",
+                name: "email",
+        
+            },
+            {
+                type: "input",
+                message: "What is the title of your project?",
+                name: "title",
+            },
+            {
+                type: "input",
+                message: "Enter a description of your project.",
+                name: "description",
+            },
+            {
+                type: "input",
+                message: "Provide installation instructions.",
+                name: "installation",
+            },
+            {
+                type: "input",
+                message: "Provide usage information.",
+                name: "usage",
+            },
+            {
+                type: "input",
+                message: "What are the contribution guidelines for this project?",
+                name: "guidelines",
+        
+            },
+            {
+                type: "input",
+                message: "Provide test instructions for this project.",
+                name: "test",
+            },
+            {
+                type: "list",
+                message: "Please select the licesne for your project.",
+                name: "license",
+                choices: ["license A", "license B", "license C"],
+        
+            },
+
+        ])
+
+
+
+    .then(data => {
+        const readme = `
+
+        <h1 align="center">${data.title} </h1>
+
+        ## Description
+        ${data.description}
+
+        ## Table of Contents
+        - [Description](#description)
+        - [Installation](#installation)
+        - [Usage](#usage)
+        - [Contribution](#contribution)
+        - [Test](#test)
+        - [Contact](#contact)
+
+        ## Installation
+        ${data.installation}
+
+        ## Usage
+        ${data.usage}
+
+        ## Contribution
+        ${data.guidelines}
+
+        ## Test
+        ${data.test}
+
+        ## Contact
+        ${data.userName}
+        ${data.email}
+
+        `
+    })
 }
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+userPrompt();
 
-// TODO: Create a function to initialize app
-function init() {}
 
-// Function call to initialize app
-init();
+fs.writeFile('readme.md', readme, err => {
+    if (err) {
+      console.error(err)
+      return
+    }
+    
+  })
+
