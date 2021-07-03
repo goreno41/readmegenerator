@@ -54,7 +54,18 @@ const questions = [
         message: "Provide test instructions for this project.",
         name: "funFact",
     },
+    {
+        type: "list",
+        message: "Please select the licesne for your project.",
+        name: "license",
+        choices: []
+
+    }
 ];
+
+function userPrompt() {
+    inquirer.prompt(questions)
+}
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}
